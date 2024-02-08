@@ -11,6 +11,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ReposCardComponent } from './components/repos-card/repos-card.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SearchComponent } from './components/search/search.component';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SearchComponent } from './components/search/search.component';
     HttpClientModule,
     FormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatPaginatorModule,
+    NoopAnimationsModule
   ],
   providers: [
      {
