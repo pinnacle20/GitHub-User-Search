@@ -6,19 +6,4 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })
-export class SearchPageComponent {
-  constructor(private apiService: ApiService) {}
-
-  respo: any[] = [];
-
-  ngOnInit() {
-    this.apiService.getRepos('octocat', 1, 10).subscribe(console.log);
-  }
-
-  searchText: string = '';
-  search() {
-    this.apiService.getRepos('octocat', 2, 1).subscribe((data: any = []) => {
-      console.log(data);
-    });
-  }
-}
+export class SearchPageComponent {}

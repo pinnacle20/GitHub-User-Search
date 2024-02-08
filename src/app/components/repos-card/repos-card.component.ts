@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ReposCardComponent {
   @Input() repo: any;
+  @Input() githubUsername: any;
 
   constructor(private apiService: ApiService) {}
 
@@ -17,7 +18,7 @@ export class ReposCardComponent {
 
   ngOnInit() {
     this.apiService
-      .getRepoLanguages('Swarnendu0123', this.repo.name)
+      .getRepoLanguages(this.githubUsername, this.repo.name)
       .subscribe((data) => {
         Object.keys(data).forEach((key) => {
           this.languages.push(key);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -6,8 +6,17 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss'],
 })
-export class ProfileCardComponent {
+export class ProfileCardComponent implements OnChanges {
+  @Input() githubUsername = '';
+
   constructor(private apiService: ApiService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['githubUsername']) {
+      console.log('Input received ', this.githubUsername);
+      this.ngOnInit();
+    }
+  }
 
   respo: any[] = [];
 
@@ -22,8 +31,8 @@ export class ProfileCardComponent {
   following = '';
 
   ngOnInit() {
-    this.apiService.getUser('Swarnendu0123').subscribe((data) => {
-      this.userName = data.name;
+    this.apiService.getUser(this.githubUsername).subscribe((data) => {
+      this.userName = this.githubUsername;
       this.userBio = data.bio === null ? 'NA' : data.bio;
       this.userLocation = data.location === null ? 'NA' : data.location;
       this.twitterHandle =

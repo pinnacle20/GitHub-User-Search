@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -8,16 +8,20 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent {
   constructor(private apiService: ApiService) {}
 
   repository: any[] = [];
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  githubUsername = '';
+  search(searchText: string) {
+    console.log('Input received ', searchText);
+    this.githubUsername = searchText;
     this.apiService
-      .getRepos('Swarnendu0123', 1, 10)
+      .getRepos(this.githubUsername, 1, this.pageSize)
       .subscribe((data: any = []) => {
-        console.log('Started -', data);
         this.repository = data;
       });
   }
@@ -38,13 +42,10 @@ export class ProfilePageComponent implements OnInit {
     if (endIndex > this.allProducts.length) {
       endIndex = this.allProducts.length;
     }
-    console.log('Start Index - ', event.pageIndex + 1);
     this.apiService
-      .getRepos('Swarnendu0123', event.pageIndex + 1, this.pageSize)
+      .getRepos(this.githubUsername, event.pageIndex + 1, event.pageSize)
       .subscribe((data: any = []) => {
         this.repository = data;
       });
-
-    this.activeProducts = this.allProducts.slice(startIndex, endIndex);
   }
 }

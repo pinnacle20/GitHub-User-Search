@@ -1,10 +1,10 @@
-<div class="flex justify-end bg-[#103A4F]">
-    <app-search></app-search>
+<div class="flex justify-end py-2 pr-3 bg-[#103A4F]">
+    <app-search (searchEmit)="search($event)"></app-search>
 </div>
-<app-profile-card></app-profile-card>
+<app-profile-card [githubUsername]="githubUsername"></app-profile-card>
 <div class="flex items-center flex-wrap gap-10 justify-evenly bg-gray-800 p-10">
     <div *ngFor="let item of repository">
-        <app-repos-card [repo]="item"></app-repos-card>
+        <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
     </div>
 </div>
 <div class="mt-2 w-full bottom-0">
