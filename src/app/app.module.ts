@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ReposCardComponent } from './components/repos-card/repos-card.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     ProfileCardComponent,
     SearchPageComponent,
     ReposCardComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
