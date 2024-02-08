@@ -9,7 +9,7 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   getUser(githubUsername: string) {
-    return this.httpClient.get(
+    return this.httpClient.get<any>(
       `https://api.github.com/users/${githubUsername}`
     );
   }
@@ -25,5 +25,11 @@ export class ApiService {
     };
     // Making the HTTP GET request with pagination parameters
     return this.httpClient.get<any[]>(BASEURL, { params });
+  }
+
+  getRepoLanguages(githubUsername: string, repoName: string) {
+    return this.httpClient.get<any>(
+      `https://api.github.com/repos/${githubUsername}/${repoName}/languages`
+    );
   }
 }
