@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -6,4 +7,11 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })
-export class SearchPageComponent {}
+export class SearchPageComponent {
+  constructor(private router: Router) {}
+
+  search(githubUsername: string) {
+    console.log(githubUsername);
+    this.router.navigate(['/profile']);
+  }
+}
