@@ -7,7 +7,7 @@ import { tap, throwError } from 'rxjs';
 })
 export class ApiService {
   constructor(private httpClient: HttpClient) {}
-
+  
   getUser(githubUsername: string) {
     return this.httpClient.get<any>(
       `https://api.github.com/users/${githubUsername}`

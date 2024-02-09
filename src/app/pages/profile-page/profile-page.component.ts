@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -26,8 +27,11 @@ export class ProfilePageComponent {
 
   constructor(
     private apiService: ApiService,
+    private sharedData: SharedDataService,
     @Inject(LOCAL_STORAGE) private storage: StorageService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     const userData = this.storage.get(this.userCache);
     if (userData) {
       this.githubUsername = userData;
@@ -38,18 +42,10 @@ export class ProfilePageComponent {
     }
   }
 
-  ngOnInit(): void {}
-
   search(searchText: string) {
     if (searchText != '') {
-      this.githubUsername = searchText;
-      this.storage.set(this.userCache, this.githubUsername);
-      this.apiService
-        .getRepos(this.githubUsername, 1, this.pageSize)
-        .subscribe((data: any = []) => {
-          this.repository = data;
-          this.storage.set(this.repoCache, this.repository);
-        });
+      this.sharedData.modifyUserData(searchText);
+      this.ngOnInit();
     }
   }
 
