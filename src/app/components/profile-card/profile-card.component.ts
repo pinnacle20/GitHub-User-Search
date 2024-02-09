@@ -13,8 +13,7 @@ export class ProfileCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['githubUsername']) {
-      console.log('Input received ', this.githubUsername);
-      this.ngOnInit();
+      if(this.githubUsername!='') this.getUserDetails();
     }
   }
 
@@ -30,7 +29,7 @@ export class ProfileCardComponent implements OnChanges {
   followers = '';
   following = '';
 
-  ngOnInit() {
+  getUserDetails() {
     this.apiService.getUser(this.githubUsername).subscribe((data) => {
       this.userName = this.githubUsername;
       this.userBio = data.bio === null ? 'NA' : data.bio;

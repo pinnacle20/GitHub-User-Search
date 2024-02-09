@@ -30,7 +30,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     AppRoutingModule,
     MatPaginatorModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+  
   ],
   providers: [
      {

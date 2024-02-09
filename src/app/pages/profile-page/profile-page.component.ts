@@ -1,7 +1,15 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 @Component({
   selector: 'app-profile-page',
@@ -9,21 +17,40 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent {
-  constructor(private apiService: ApiService) {}
-
   repository: any[] = [];
+  githubUsername = '';
+
+  // Unique key for LocalStorage
+  private userCache = 'userCache';
+  private repoCache = 'repoCache';
+
+  constructor(
+    private apiService: ApiService,
+    @Inject(LOCAL_STORAGE) private storage: StorageService
+  ) {
+    const userData = this.storage.get(this.userCache);
+    if (userData) {
+      this.githubUsername = userData;
+    }
+    const repoData = this.storage.get(this.repoCache);
+    if (repoData) {
+      this.repository = repoData;
+    }
+  }
 
   ngOnInit(): void {}
 
-  githubUsername = '';
   search(searchText: string) {
-    console.log('Input received ', searchText);
-    this.githubUsername = searchText;
-    this.apiService
-      .getRepos(this.githubUsername, 1, this.pageSize)
-      .subscribe((data: any = []) => {
-        this.repository = data;
-      });
+    if (searchText != '') {
+      this.githubUsername = searchText;
+      this.storage.set(this.userCache, this.githubUsername);
+      this.apiService
+        .getRepos(this.githubUsername, 1, this.pageSize)
+        .subscribe((data: any = []) => {
+          this.repository = data;
+          this.storage.set(this.repoCache, this.repository);
+        });
+    }
   }
 
   // Pagination
