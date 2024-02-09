@@ -1,29 +1,35 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { ApiService } from './api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ApiCacheInterceptorService implements HttpInterceptor{
-  constructor(private apiService : ApiService){}
+export class ApiCacheInterceptorService implements HttpInterceptor {
+  constructor(private apiService: ApiService) {}
   //Cache to store response data
   private cache = new Map<string, HttpResponse<any>>();
-  
-  //specifing set of endpoints to cache 
-  private endpointsToCache = new Set([
-    'https://api.example.com/repos',
-  ]);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //specifing set of endpoints to cache
+  private endpointsToCache = new Set(['https://api.example.com/repos']);
 
-    //checks if the request endpoint is present in the set of endpoints to cache    
-    if(this.endpointsToCache.has(req.url)){
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    //checks if the request endpoint is present in the set of endpoints to cache
+    if (this.endpointsToCache.has(req.url)) {
       const cachedResponse = this.cache.get(req.url);
-      
+
       //if the response is found in the cache, returns it as an observable of HttpResponse
-      if(cachedResponse){
+      if (cachedResponse) {
         return of(cachedResponse);
       }
 
@@ -35,11 +41,9 @@ export class ApiCacheInterceptorService implements HttpInterceptor{
           }
         })
       );
-      
     }
 
     //if the request enpoint isn't in the set of endpoint, send the request as it is to the server
     return next.handle(req);
   }
-
 }

@@ -2,13 +2,14 @@
     <app-search (searchEmit)="search($event)"></app-search>
 </div>
 <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-<div class="flex items-center flex-wrap gap-10 justify-evenly bg-gray-800 p-10">
+<div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#103A4F] p-10">
     <div *ngFor="let item of repository">
         <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
     </div>
 </div>
-<div class="mt-2 w-full bottom-0">
-    <mat-paginator #paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        aria-label="Select page" (page)="OnPageChange($event)" [disabled]="PaginationOption" [hidePageSize]="">
+<div class="w-full bottom-0 bg-red-200">
+    <mat-paginator style="background-color: #C77F90;" #paginator [length]="length" [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
+        [disabled]="PaginationOption" [hidePageSize]="">
     </mat-paginator>
 </div>

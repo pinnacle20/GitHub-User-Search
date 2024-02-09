@@ -5,19 +5,18 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { TitleStrategy } from '@angular/router';
+import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent implements OnInit {
   repository: any[] = [];
   githubUsername = '';
 
@@ -27,31 +26,38 @@ export class ProfilePageComponent {
 
   constructor(
     private apiService: ApiService,
-    private sharedData: SharedDataService,
+    private route: ActivatedRoute,
     @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {}
 
   ngOnInit(): void {
-    const userData = this.storage.get(this.userCache);
-    if (userData) {
-      this.githubUsername = userData;
-    }
-    const repoData = this.storage.get(this.repoCache);
-    if (repoData) {
-      this.repository = repoData;
-    }
+    this.githubUsername = this.storage.get(this.userCache) || '';
+    this.repository = this.storage.get(this.repoCache) || [];
+
+    this.route.queryParams.subscribe((params) => {
+      if (params['username']) this.modifyUserData(params['username']);
+    });
   }
 
   search(searchText: string) {
     if (searchText != '') {
-      this.sharedData.modifyUserData(searchText);
-      this.ngOnInit();
+      console.log('searched ', searchText);
+      this.modifyUserData(searchText);
     }
   }
 
+  modifyUserData(githubUsername: string) {
+    this.storage.set(this.userCache, githubUsername);
+    this.apiService
+      .getRepos(githubUsername, 1, 10)
+      .subscribe((data: any = []) => {
+        this.storage.set(this.repoCache, data);
+        this.githubUsername = githubUsername;
+        this.repository = data;
+      });
+  }
+
   // Pagination
-  allProducts: any[] = [];
-  activeProducts: any[] = [];
   pageSize = 10;
   pageSizeOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   length: number = 100;
@@ -60,11 +66,6 @@ export class ProfilePageComponent {
   OnPageChange(event: PageEvent) {
     console.log(event);
     this.pageSize = event.pageSize;
-    let startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.allProducts.length) {
-      endIndex = this.allProducts.length;
-    }
     this.apiService
       .getRepos(this.githubUsername, event.pageIndex + 1, event.pageSize)
       .subscribe((data: any = []) => {
