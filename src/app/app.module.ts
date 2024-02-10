@@ -11,9 +11,17 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ReposCardComponent } from './components/repos-card/repos-card.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SearchComponent } from './components/search/search.component';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { MatPaginatorIntExtService } from './services/mat-paginator-int-ext.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +40,7 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     AppRoutingModule,
     MatPaginatorModule,
     NoopAnimationsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     {
@@ -45,6 +53,7 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
       useClass: LoaderInterceptor,
       multi: true,
     },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntExtService },
   ],
   bootstrap: [AppComponent],
 })

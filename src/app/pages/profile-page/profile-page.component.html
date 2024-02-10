@@ -18,6 +18,6 @@
 <div [ngClass]="{'hidden':(loader.isLoading$ |async)} " class="relative w-full bottom-0 bg-red-200">
     <mat-paginator style="background-color: #C77F90;" #paginator [length]="length" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
-        [disabled]="PaginationOption" [hidePageSize]="">
+        [disabled]="PaginationOption" >
     </mat-paginator>
 </div>
