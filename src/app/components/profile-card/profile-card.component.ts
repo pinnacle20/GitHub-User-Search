@@ -13,7 +13,7 @@ export class ProfileCardComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['githubUsername']) {
-      if(this.githubUsername!='') this.getUserDetails();
+      if (this.githubUsername != '') this.getUserDetails();
     }
   }
 
@@ -32,11 +32,14 @@ export class ProfileCardComponent implements OnChanges {
   getUserDetails() {
     this.apiService.getUser(this.githubUsername).subscribe((data) => {
       this.userName = this.githubUsername;
-      this.userBio = data.bio === null ? 'NA' : data.bio;
-      this.userLocation = data.location === null ? 'NA' : data.location;
+      this.userBio = data.bio === null ? 'No description' : data.bio;
+      this.userLocation =
+        data.location === null ? 'Not available' : data.location;
       this.twitterHandle =
-        data.twitter_username === null ? 'NA' : data.twitter_username;
-      this.emailId = data.email === null ? 'NA' : data.email;
+        data.twitter_username === null
+          ? 'Not mentioned'
+          : data.twitter_username;
+      this.emailId = data.email === null ? 'Not mentioned' : data.email;
       this.gitHubHandle = data.html_url;
       this.followers = data.followers;
       this.following = data.following;

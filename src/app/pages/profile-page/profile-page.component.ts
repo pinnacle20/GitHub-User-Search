@@ -29,7 +29,6 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private router: Router,
     public loader: LoaderService,
     private cdr: ChangeDetectorRef,
     @Inject(LOCAL_STORAGE) private storage: StorageService

@@ -5,8 +5,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
-  { path: '', component: ProfilePageComponent },
-  { path: 'search', component: SearchPageComponent },
+  { path: '', component: SearchPageComponent },
   { path: 'profile', component: ProfilePageComponent },
 ];
 

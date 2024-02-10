@@ -9,6 +9,11 @@
     <div>
         <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
         <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#103A4F] p-10">
+            <div *ngIf="!repository.length">
+                <div class="text-white opacity-60 text-xl">
+                    Nothing to show
+                </div>
+            </div>
             <div *ngFor="let item of repository">
                 <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
             </div>
