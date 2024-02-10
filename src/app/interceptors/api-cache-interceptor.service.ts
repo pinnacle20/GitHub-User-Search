@@ -18,7 +18,10 @@ export class ApiCacheInterceptorService implements HttpInterceptor {
   private cache = new Map<string, HttpResponse<any>>();
 
   //specifing set of endpoints to cache
-  private endpointsToCache = new Set(['https://api.example.com/repos']);
+  private endpointsToCache = new Set([
+    'https://api.example.com/repos',
+    'https://api.github.com/users',
+  ]);
 
   intercept(
     req: HttpRequest<any>,

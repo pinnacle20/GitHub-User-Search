@@ -11,8 +11,10 @@ export class SearchComponent {
 
   searchText: string = '';
   search() {
-    this.router.navigate(['/profile'], {
-      queryParams: { username: this.searchText },
-    });
+    if (this.searchText.trim()) {
+      this.router.navigate(['/profile'], {
+        queryParams: { username: this.searchText.trim() },
+      });
+    }
   }
 }

@@ -9,7 +9,6 @@ import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { PageEvent } from '@angular/material/paginator';
 
-import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
@@ -22,38 +21,29 @@ export class ProfilePageComponent implements OnInit {
   repository: any[] = [];
   githubUsername = '';
 
-  // Unique key for LocalStorage
-  private userCache = 'userCache';
-  private repoCache = 'repoCache';
-
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     public loader: LoaderService,
-    private cdr: ChangeDetectorRef,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.githubUsername = this.storage.get(this.userCache) || '';
-    this.repository = this.storage.get(this.repoCache) || [];
-
     this.route.queryParams.subscribe((params) => {
       if (params['username']) this.modifyUserData(params['username']);
     });
   }
 
   modifyUserData(githubUsername: string) {
-    this.storage.set(this.userCache, githubUsername);
-    this.cdr.detectChanges();
+    this.githubUsername = githubUsername;
     this.apiService.getRepos(githubUsername, 1, 10).subscribe(
       (data: any = []) => {
-        this.storage.set(this.repoCache, data);
         this.githubUsername = githubUsername;
         this.repository = data;
       },
       (error) => {
         console.error('Error fetching repositories', error);
+        this.githubUsername = '';
       }
     );
   }

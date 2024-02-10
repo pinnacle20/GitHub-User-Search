@@ -7,20 +7,49 @@
     <img width="800px" class="bg-cover" src="/assets/loader.gif" alt="Loader">
 </div>
 <ng-template #elseBlock>
-    <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-    <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10">
-        <div *ngIf="!repository.length">
-            <div class="text-white opacity-60 text-xl">
-                Nothing to show
+    <div *ngIf="githubUsername; else elseBlock">
+        <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
+        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10">
+            <div *ngIf="!repository.length">
+                <div class="text-white opacity-60 text-xl">
+                    No repository to show!
+                </div>
+            </div>
+            <div *ngFor="let item of repository">
+                <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
             </div>
         </div>
-        <div *ngFor="let item of repository">
-            <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
-        </div>
     </div>
+    <ng-template #elseBlock>
+        <div class="w-full h-full flex flex-col items-center bg-cover absolute overflow-x-hidden font-mono text-white"
+            style="background-image: url('/assets/space.jpg');">
+            <div class="text-[100px] font-bold text-white mt-2">404</div>
+            <div class="flex items-center flex-col">
+                <div class="text-[30px] ">
+                    <span>
+                        LOST IN
+                    </span>
+                    <span class="line-through">SPACE</span>
+                    <span>
+                        GITHUB?
+                    </span>
+                </div>
+                <div class="text-[20px]">
+                    No such user exists !
+                    <div class="absolute w-full">
+                        <img class="rotate" width="40px" src="/assets/astronaut.svg" />
+                    </div>
+                </div>
+                <img width="300px" src="/assets/planet.svg" />
+                <div class="text-[20px] bg-white w-40 text-center text-black p-2 mb-2 rounded">
+                    Search Again
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
 </ng-template>
-<div [ngClass]="{'hidden': ( loader.isLoading$|async)} "
-    class="relative w-full bottom-0 bg-red-200 ">
+<div [ngClass]="{'hidden': (!githubUsername)||(loader.isLoading$|async)} " class="relative w-full bottom-0 bg-red-200 ">
     <mat-paginator style="background-color: white;" #paginator [length]="length" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
         [disabled]="PaginationOption">
