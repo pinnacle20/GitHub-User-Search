@@ -8,12 +8,5 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent {
-  constructor(private router: Router) {}
-
-  search(githubUsername: string) {
-    console.log(githubUsername);
-    this.router.navigate(['/profile'], {
-      queryParams: { username: githubUsername },
-    });
-  }
+  constructor() {}
 }

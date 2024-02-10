@@ -3,13 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -31,8 +29,9 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private router: Router,
     public loader: LoaderService,
-    private cdr: ChangeDetectorRef, 
+    private cdr: ChangeDetectorRef,
     @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {}
 
@@ -43,13 +42,6 @@ export class ProfilePageComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['username']) this.modifyUserData(params['username']);
     });
-  }
-
-  search(searchText: string) {
-    if (searchText != '') {
-      console.log('searched ', searchText);
-      this.modifyUserData(searchText);
-    }
   }
 
   modifyUserData(githubUsername: string) {

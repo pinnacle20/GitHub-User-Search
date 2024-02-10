@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  @Output() searchEmit: EventEmitter<string> = new EventEmitter();
+  constructor(private router: Router) {}
 
   searchText: string = '';
   search() {
-    this.searchEmit.emit(this.searchText);
+    this.router.navigate(['/profile'], {
+      queryParams: { username: this.searchText },
+    });
   }
 }
