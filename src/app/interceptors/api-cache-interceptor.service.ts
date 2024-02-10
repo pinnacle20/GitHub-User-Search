@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
-import { ApiService } from './api.service';
+import { ApiService } from '../services/api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +26,11 @@ export class ApiCacheInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     //checks if the request endpoint is present in the set of endpoints to cache
     if (this.endpointsToCache.has(req.url)) {
+      let i = 4000;
+      while (i--) {
+        console.log('Waiting');
+      }
+
       const cachedResponse = this.cache.get(req.url);
 
       //if the response is found in the cache, returns it as an observable of HttpResponse

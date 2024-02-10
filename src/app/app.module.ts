@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from  '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ApiCacheInterceptorService } from './services/api-cache-interceptor.service';
+import { ApiCacheInterceptorService } from './interceptors/api-cache-interceptor.service';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +12,8 @@ import { ReposCardComponent } from './components/repos-card/repos-card.component
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SearchComponent } from './components/search/search.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     SearchPageComponent,
     ReposCardComponent,
     ProfilePageComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,15 +32,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     MatPaginatorModule,
     NoopAnimationsModule,
-  
+    BrowserAnimationsModule
   ],
   providers: [
-     {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiCacheInterceptorService,
-      multi: true
-     }
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -7,10 +7,15 @@ import { tap, throwError } from 'rxjs';
 })
 export class ApiService {
   constructor(private httpClient: HttpClient) {}
-  
+
   getUser(githubUsername: string) {
     return this.httpClient.get<any>(
-      `https://api.github.com/users/${githubUsername}`
+      `https://api.github.com/users/${githubUsername}`,
+      {
+        headers: {
+          Authorization: `Bearer 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`,
+        },
+      }
     );
   }
 
@@ -23,8 +28,14 @@ export class ApiService {
       page: pageNo.toString(),
       per_page: perPage.toString(),
     };
-    // Making the HTTP GET request with pagination parameters
-    return this.httpClient.get<any[]>(BASEURL, { params });
+
+    // Setting up the headers with Authorization
+    const headers = {
+      Authorization: `Bearer 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`,
+    };
+
+    // Making the HTTP GET request with pagination parameters and headers
+    return this.httpClient.get<any[]>(BASEURL, { params, headers });
   }
 
   getRepoLanguages(githubUsername: string, repoName: string) {

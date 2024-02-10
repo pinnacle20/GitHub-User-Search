@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Inject,
   OnChanges,
@@ -10,11 +12,13 @@ import { ApiService } from 'src/app/services/api.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfilePageComponent implements OnInit {
   repository: any[] = [];
@@ -27,6 +31,8 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
+    public loader: LoaderService,
+    private cdr: ChangeDetectorRef, 
     @Inject(LOCAL_STORAGE) private storage: StorageService
   ) {}
 
@@ -48,6 +54,7 @@ export class ProfilePageComponent implements OnInit {
 
   modifyUserData(githubUsername: string) {
     this.storage.set(this.userCache, githubUsername);
+    this.cdr.detectChanges();
     this.apiService
       .getRepos(githubUsername, 1, 10)
       .subscribe((data: any = []) => {
