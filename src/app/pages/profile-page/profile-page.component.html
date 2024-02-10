@@ -1,4 +1,5 @@
-<div class="flex justify-end py-2 pr-3 bg-[#103A4F]">
+<div class="flex items-center justify-between py-2 pr-3 bg-gray-900 ">
+    <a routerLink="/home" class="text-white rounded-md ml-4 px-3 py-2  font-medium hover:bg-gray-700">Home</a>
     <app-search></app-search>
 </div>
 <div *ngIf="(loader.isLoading$ | async); else elseBlock"
@@ -6,22 +7,21 @@
     <img width="800px" class="bg-cover" src="/assets/loader.gif" alt="Loader">
 </div>
 <ng-template #elseBlock>
-    <div>
-        <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#103A4F] p-10">
-            <div *ngIf="!repository.length">
-                <div class="text-white opacity-60 text-xl">
-                    Nothing to show
-                </div>
+    <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
+    <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10">
+        <div *ngIf="!repository.length">
+            <div class="text-white opacity-60 text-xl">
+                Nothing to show
             </div>
-            <div *ngFor="let item of repository">
-                <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
-            </div>
+        </div>
+        <div *ngFor="let item of repository">
+            <app-repos-card [repo]="item" (githubUsername)="githubUsername"></app-repos-card>
         </div>
     </div>
 </ng-template>
-<div [ngClass]="{'hidden':(loader.isLoading$ |async)} " class="relative w-full bottom-0 bg-red-200">
-    <mat-paginator style="background-color: #C77F90;" #paginator [length]="length" [pageSize]="pageSize"
+<div [ngClass]="{'hidden': ( loader.isLoading$|async)} "
+    class="relative w-full bottom-0 bg-red-200 ">
+    <mat-paginator style="background-color: white;" #paginator [length]="length" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
         [disabled]="PaginationOption">
     </mat-paginator>

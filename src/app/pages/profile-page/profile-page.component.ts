@@ -46,13 +46,16 @@ export class ProfilePageComponent implements OnInit {
   modifyUserData(githubUsername: string) {
     this.storage.set(this.userCache, githubUsername);
     this.cdr.detectChanges();
-    this.apiService
-      .getRepos(githubUsername, 1, 10)
-      .subscribe((data: any = []) => {
+    this.apiService.getRepos(githubUsername, 1, 10).subscribe(
+      (data: any = []) => {
         this.storage.set(this.repoCache, data);
         this.githubUsername = githubUsername;
         this.repository = data;
-      });
+      },
+      (error) => {
+        console.error('Error fetching repositories', error);
+      }
+    );
   }
 
   // Pagination
