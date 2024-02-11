@@ -3,13 +3,13 @@
     <app-search></app-search>
 </div>
 <div *ngIf="(loader.isLoading$ | async); else elseBlock"
-    class="flex items-center justify-center absolute w-full h-full z-9999 bg-[rgba(255, 255, 255, 0.7)] ">
+    class="flex items-center justify-center absolute w-full h-full z-9999 bg-[rgba(255, 255, 255, 0.7)] bg-gray-900">
     <img width="800px" class="bg-cover" src="/assets/loader.gif" alt="Loader">
 </div>
 <ng-template #elseBlock>
     <div *ngIf="githubUsername; else elseBlock">
         <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10">
+        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 h-[210px]">
             <div *ngIf="!repository.length">
                 <div class="text-white opacity-60 text-xl">
                     No repository to show!
@@ -21,8 +21,8 @@
         </div>
     </div>
     <ng-template #elseBlock>
-        <div class="w-full h-full flex flex-col items-center bg-cover absolute overflow-x-hidden font-mono text-white"
-            style="background-image: url('/assets/space.jpg');">
+        <div
+            class="w-full h-full flex flex-col flex-wrap xxitems-center bg-cover absolute overflow-x-hidden overflow-y-hidden font-mono text-white bg-gray-800">
             <div class="text-[100px] font-bold text-white mt-2">404</div>
             <div class="flex items-center flex-col">
                 <div class="text-[30px] ">
@@ -41,15 +41,16 @@
                     </div>
                 </div>
                 <img width="300px" src="/assets/planet.svg" />
-                <div class="text-[20px] bg-white w-40 text-center text-black p-2 mb-2 rounded">
+                <button routerLink="/home"
+                    class="text-[20px] bg-white bg-opacity-30 w-40 text-center text-black p-2 mb-2 rounded">
                     Search Again
-                </div>
+                </button>
             </div>
         </div>
 
     </ng-template>
 </ng-template>
-<div [ngClass]="{'hidden': (!githubUsername)||(loader.isLoading$|async)} " class="relative w-full bottom-0 bg-red-200 ">
+<div [ngClass]="{'hidden': (!githubUsername)||(loader.isLoading$|async)} " class="relative w-full bg-red-200 ">
     <mat-paginator style="background-color: white;" #paginator [length]="length" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
         [disabled]="PaginationOption">

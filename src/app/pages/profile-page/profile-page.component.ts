@@ -51,7 +51,7 @@ export class ProfilePageComponent implements OnInit {
   // Pagination
   pageSize = 10;
   pageSizeOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-  length: number = 100;
+  length: number = 500;
   PaginationOption: boolean = false;
 
   OnPageChange(event: PageEvent) {
