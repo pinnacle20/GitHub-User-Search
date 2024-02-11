@@ -9,7 +9,7 @@
 <ng-template #elseBlock>
     <div *ngIf="githubUsername; else elseBlock">
         <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 h-[210px]">
+        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 min-h-[210px]">
             <div *ngIf="!repository.length">
                 <div class="text-white opacity-60 text-xl">
                     No repository to show!
@@ -43,7 +43,7 @@
                 </div>
                 <img width="310px" src="/assets/planet.svg" />
                 <button routerLink="/home"
-                    class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-black p-2 mb-2 rounded">
+                    class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-black p-2 mb-2 rounded hover:underline transform-1s blue">
                     Search Again
                 </button>
             </div>
