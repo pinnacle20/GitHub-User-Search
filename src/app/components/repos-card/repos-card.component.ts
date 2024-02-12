@@ -1,32 +1,18 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { tick } from '@angular/core/testing';
-import { first } from 'rxjs';
-import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-repos-card',
   templateUrl: './repos-card.component.html',
   styleUrls: ['./repos-card.component.scss'],
 })
-export class ReposCardComponent implements OnChanges {
+export class ReposCardComponent {
   @Input() repo: any;
-  @Input() githubUsername: any;
 
-  constructor(private apiService: ApiService) {}
+  topics: string[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['githubUsername']) {
-      this.apiService
-        .getRepoLanguages(this.githubUsername, this.repo.name)
-        .subscribe((data) => {
-          Object.keys(data).forEach((key) => {
-            this.languages.push(key);
-          });
-        });
-    }
+  ngOnInit() {
+    this.repo.topics.forEach((key: string) => {
+      this.topics.push(key);
+    });
   }
-  
-  languages: string[] = [];
-
-  ngOnInit() {}
 }
