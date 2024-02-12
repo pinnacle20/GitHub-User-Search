@@ -1,0 +1,23 @@
+.rotate {
+    animation: rotation 18s infinite linear;
+  }
+  
+  @keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+  }
+  
+  .spinner-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 9999;
+    }
+  
