@@ -21,12 +21,11 @@
         </div>
     </div>
     <ng-template #elseBlock>
-
         <div
-            class="relative w-full flex flex-col flex-wrap items-center absolute overflow-x-hidden font-mono text-white bg-gray-800 ">
-            <div class="text-[90px] font-bold text-white mt-1">404</div>
+            class="relative w-full flex flex-col flex-wrap items-center absolute font-mono text-white bg-[url(/assets/space.jpg)] bg-cover bg-center overflow-hidden">
+            <div class="oldstyle-nums text-[85px] font-bold text-white ">404</div>
             <div class="flex items-center flex-col h-full">
-                <div class="text-[30px] ">
+                <div class="text-[28px] italic">
                     <span>
                         LOST IN
                     </span>
@@ -35,15 +34,12 @@
                         GITHUB?
                     </span>
                 </div>
-                <div class="text-[18px]">
+                <div class="text-[18px] mt-2 font-serif">
                     No such user exists !
-                    <div class="absolute w-full">
-                        <img class="rotate" width="40px" src="/assets/astronaut.svg" />
-                    </div>
                 </div>
-                <img width="310px" src="/assets/planet.svg" />
+                <img class="rotate" width="310px" src="/assets/planet.svg" />
                 <button routerLink="/home"
-                    class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-black p-2 mb-2 rounded hover:underline transform-1s blue">
+                    class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-white p-2 mb-3 rounded hover:underline transform-1s blue">
                     Search Again
                 </button>
             </div>
