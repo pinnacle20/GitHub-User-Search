@@ -23,6 +23,9 @@ export class ProfilePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.apiService.resposityCount.asObservable().subscribe((data) => {
+      this.length = data;
+    });
     this.route.queryParams.subscribe((params) => {
       if (params['username']) this.modifyUserData(params['username']);
     });
@@ -47,12 +50,11 @@ export class ProfilePageComponent implements OnInit {
   // Pagination
   pageSize = 10;
   pageSizeOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-  length: number = 500;
+  length: number = 0;
   PaginationOption: boolean = false;
 
   OnPageChange(event: PageEvent) {
     console.log(event);
-    this.pageSize = event.pageSize;
     this.apiService
       .getRepos(this.githubUsername, event.pageIndex + 1, event.pageSize)
       .subscribe((data: any = []) => {

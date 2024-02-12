@@ -21,7 +21,6 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
-import { MatPaginatorIntExtService } from './services/mat-paginator-int-ext.service';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
@@ -55,7 +54,6 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
       useClass: LoaderInterceptor,
       multi: true,
     },
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntExtService },
   ],
   bootstrap: [AppComponent],
 })

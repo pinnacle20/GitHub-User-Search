@@ -5,6 +5,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -15,10 +16,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class ProfileCardComponent {
   @Input() githubUsername = '';
 
-  constructor(
-    private apiService: ApiService,
-    private router: Router,
-  ) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['githubUsername']) {
@@ -41,6 +39,7 @@ export class ProfileCardComponent {
   getUserDetails() {
     this.apiService.getUser(this.githubUsername).subscribe(
       (data) => {
+        this.apiService.resposityCount.next(data.public_repos);
         this.userName = this.githubUsername;
         this.userBio = data.bio === null ? 'No description' : data.bio;
         this.userLocation =
