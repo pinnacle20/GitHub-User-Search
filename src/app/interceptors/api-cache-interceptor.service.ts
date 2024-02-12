@@ -19,8 +19,7 @@ export class ApiCacheInterceptorService implements HttpInterceptor {
 
   //specifing set of endpoints to cache
   private endpointsToCache = new Set([
-    'https://api.example.com/repos',
-    'https://api.github.com/users',
+    'https://api.github.com/users'
   ]);
 
   intercept(
@@ -29,10 +28,6 @@ export class ApiCacheInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     //checks if the request endpoint is present in the set of endpoints to cache
     if (this.endpointsToCache.has(req.url)) {
-      let i = 4000;
-      while (i--) {
-        console.log('Waiting');
-      }
 
       const cachedResponse = this.cache.get(req.url);
 

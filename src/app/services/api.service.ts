@@ -13,7 +13,7 @@ export class ApiService {
       `https://api.github.com/users/${githubUsername}`,
       {
         headers: {
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer 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`,
         },
       }
     );
@@ -31,16 +31,10 @@ export class ApiService {
 
     // Setting up the headers with Authorization
     const headers = {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
     };
 
     // Making the HTTP GET request with pagination parameters and headers
     return this.httpClient.get<any[]>(BASEURL, { params, headers });
-  }
-
-  getRepoLanguages(githubUsername: string, repoName: string) {
-    return this.httpClient.get<any>(
-      `https://api.github.com/repos/${githubUsername}/${repoName}/languages`
-    );
   }
 }

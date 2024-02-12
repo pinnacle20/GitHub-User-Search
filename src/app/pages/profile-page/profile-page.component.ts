@@ -5,7 +5,7 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute, Router, TitleStrategy } from '@angular/router';
+import { ActivatedRoute, Route, Router, TitleStrategy } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { PageEvent } from '@angular/material/paginator';
 
@@ -25,12 +25,12 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
+    private router: Router,
     public loader: LoaderService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      console.log('profilepage');
       if (params['username']) this.modifyUserData(params['username']);
     });
   }
@@ -45,17 +45,15 @@ export class ProfilePageComponent implements OnInit {
         },
         (error) => {
           console.error('Error fetching repositories', error);
+          this.router.navigate(['/error'], {
+            queryParams: { error: error.error.message },
+          });
         }
       );
     }
   }
 
   errorHandle(isValid: boolean) {
-    // console.log(message);
-    // if (message === 'User not found') {
-    // console.log('false');
-    // this.userFound = false;
-    // }
     this.userFound = isValid;
   }
 

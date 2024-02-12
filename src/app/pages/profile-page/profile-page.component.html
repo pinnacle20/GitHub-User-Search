@@ -7,8 +7,8 @@
     <img width="800px" class="bg-cover" src="/assets/loader.gif" alt="Loader">
 </div>
 <ng-template #elseBlock>
-    <app-profile-card [githubUsername]="githubUsername" (handleInvalidUser)="errorHandle($event)"></app-profile-card>
-    <div *ngIf="userFound; else elseBlock">
+    <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
+    <div *ngIf="userFound">
         <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 min-h-[210px]">
             <div *ngIf="!repository.length">
                 <div class="text-white opacity-60 text-xl">
@@ -20,31 +20,6 @@
             </div>
         </div>
     </div>
-    <ng-template #elseBlock>
-        <div
-            class="relative w-full flex flex-col flex-wrap items-center absolute font-mono text-white bg-[url(/assets/space.jpg)] bg-cover bg-center overflow-hidden">
-            <div class="oldstyle-nums text-[85px] font-bold text-white ">404</div>
-            <div class="flex items-center flex-col h-full">
-                <div class="text-[28px] italic">
-                    <span>
-                        LOST IN
-                    </span>
-                    <span class="line-through">SPACE</span>
-                    <span>
-                        GITHUB?
-                    </span>
-                </div>
-                <div class="text-[18px] mt-2 font-serif">
-                    No such user exists !
-                </div>
-                <img class="rotate" width="310px" src="/assets/planet.svg" />
-                <button routerLink="/home"
-                    class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-white p-2 mb-3 rounded hover:underline transform-1s blue">
-                    Search Again
-                </button>
-            </div>
-        </div>
-    </ng-template>
 </ng-template>
 <div [ngClass]="{'hidden': (!userFound)||(loader.isLoading$|async)} " class="relative w-full bg-red-200 ">
     <mat-paginator style="background-color: white;" #paginator [length]="length" [pageSize]="pageSize"

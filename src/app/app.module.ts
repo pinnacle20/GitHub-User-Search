@@ -22,6 +22,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { MatPaginatorIntExtService } from './services/mat-paginator-int-ext.service';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatPaginatorIntExtService } from './services/mat-paginator-int-ext.serv
     ReposCardComponent,
     ProfilePageComponent,
     SearchComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

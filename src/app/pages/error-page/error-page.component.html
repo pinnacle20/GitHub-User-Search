@@ -1,0 +1,27 @@
+<div class="flex items-center justify-between py-2 pr-3 bg-gray-900 ">
+    <a routerLink="/home" class="text-white rounded-md ml-4 px-3 py-2  font-medium hover:bg-gray-700">Home</a>
+    <app-search></app-search>
+</div>
+<div
+    class="relative w-full flex flex-col flex-wrap items-center absolute font-mono text-white bg-[url(/assets/space.jpg)] bg-cover bg-center overflow-hidden">
+    <div class="oldstyle-nums text-[85px] font-bold text-white ">404</div>
+    <div class="flex items-center flex-col h-full">
+        <div class="text-[28px] italic">
+            <span>
+                LOST IN
+            </span>
+            <span class="line-through">SPACE</span>
+            <span>
+                GITHUB?
+            </span>
+        </div>
+        <div class="text-[18px] mt-2 font-serif text-center flex flex-wrap">
+            {{errorMessage}}
+        </div>
+        <img class="rotate" width="310px" src="/assets/planet.svg" />
+        <button routerLink="/home"
+            class="text-[15px] bg-white bg-opacity-30 w-30 text-center text-white p-2 mb-3 rounded hover:underline transform-1s blue">
+            Search Again
+        </button>
+    </div>
+</div>
