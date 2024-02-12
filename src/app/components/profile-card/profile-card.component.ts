@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -8,8 +16,12 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ProfileCardComponent implements OnChanges {
   @Input() githubUsername = '';
+  @Output() handleInvalidUser: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
 
-  constructor(private apiService: ApiService) {}
+  userFound = true;
+
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['githubUsername']) {
@@ -32,6 +44,8 @@ export class ProfileCardComponent implements OnChanges {
   getUserDetails() {
     this.apiService.getUser(this.githubUsername).subscribe(
       (data) => {
+        this.userFound = true;
+        this.handleInvalidUser.emit(this.userFound);
         this.userName = this.githubUsername;
         this.userBio = data.bio === null ? 'No description' : data.bio;
         this.userLocation =
@@ -47,7 +61,9 @@ export class ProfileCardComponent implements OnChanges {
         this.profileImg = data.avatar_url;
       },
       (error) => {
+        this.userFound = false;
         console.error('Error fetching user details:', error);
+        this.handleInvalidUser.emit(this.userFound);
       }
     );
   }

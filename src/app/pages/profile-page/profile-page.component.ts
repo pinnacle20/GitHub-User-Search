@@ -20,32 +20,43 @@ import { LoaderService } from 'src/app/services/loader.service';
 export class ProfilePageComponent implements OnInit {
   repository: any[] = [];
   githubUsername = '';
+  userFound = true;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
-    public loader: LoaderService,
-    private cdr: ChangeDetectorRef
+    public loader: LoaderService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
+      console.log('profilepage');
       if (params['username']) this.modifyUserData(params['username']);
     });
   }
 
   modifyUserData(githubUsername: string) {
     this.githubUsername = githubUsername;
-    this.apiService.getRepos(githubUsername, 1, 10).subscribe(
-      (data: any = []) => {
-        this.githubUsername = githubUsername;
-        this.repository = data;
-      },
-      (error) => {
-        console.error('Error fetching repositories', error);
-        this.githubUsername = '';
-      }
-    );
+    if (this.userFound) {
+      this.apiService.getRepos(githubUsername, 1, 10).subscribe(
+        (data: any = []) => {
+          this.githubUsername = githubUsername;
+          this.repository = data;
+        },
+        (error) => {
+          console.error('Error fetching repositories', error);
+        }
+      );
+    }
+  }
+
+  errorHandle(isValid: boolean) {
+    // console.log(message);
+    // if (message === 'User not found') {
+    // console.log('false');
+    // this.userFound = false;
+    // }
+    this.userFound = isValid;
   }
 
   // Pagination
