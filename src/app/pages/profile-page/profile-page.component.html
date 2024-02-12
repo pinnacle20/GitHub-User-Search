@@ -8,20 +8,18 @@
 </div>
 <ng-template #elseBlock>
     <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
-    <div *ngIf="userFound">
-        <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 min-h-[210px]">
-            <div *ngIf="!repository.length">
-                <div class="text-white opacity-60 text-xl">
-                    No repository to show!
-                </div>
+    <div class="flex items-center flex-wrap gap-10 justify-evenly bg-[#111827] p-10 min-h-[210px]">
+        <div *ngIf="!repository.length">
+            <div class="text-white opacity-60 text-xl">
+                No repository to show!
             </div>
-            <div *ngFor="let item of repository">
-                <app-repos-card [repo]="item"></app-repos-card>
-            </div>
+        </div>
+        <div *ngFor="let item of repository">
+            <app-repos-card [repo]="item"></app-repos-card>
         </div>
     </div>
 </ng-template>
-<div [ngClass]="{'hidden': (!userFound)||(loader.isLoading$|async)} " class="relative w-full bg-red-200 ">
+<div [ngClass]="{'hidden': (loader.isLoading$|async)} " class="relative w-full bg-red-200 ">
     <mat-paginator style="background-color: white;" #paginator [length]="length" [pageSize]="pageSize"
         [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)"
         [disabled]="PaginationOption">

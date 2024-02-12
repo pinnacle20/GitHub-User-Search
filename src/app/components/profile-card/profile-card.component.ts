@@ -1,10 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Input,
-  OnChanges,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,15 +14,10 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ProfileCardComponent {
   @Input() githubUsername = '';
-  // @Output() handleInvalidUser: EventEmitter<boolean> =
-  // new EventEmitter<boolean>();
-
-  userFound = true;
 
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,12 +39,8 @@ export class ProfileCardComponent {
   following = '';
 
   getUserDetails() {
-    console.log('profile card ', this.githubUsername);
     this.apiService.getUser(this.githubUsername).subscribe(
       (data) => {
-        console.log(data);
-        this.cdr.detectChanges();
-        // this.handleInvalidUser.emit(this.userFound);
         this.userName = this.githubUsername;
         this.userBio = data.bio === null ? 'No description' : data.bio;
         this.userLocation =
@@ -69,7 +57,6 @@ export class ProfileCardComponent {
       },
       (error) => {
         console.error('Error fetching user details:', error);
-        // this.handleInvalidUser.emit(this.userFound);
         this.router.navigate(['/error'], {
           queryParams: { error: error.error.message },
         });
