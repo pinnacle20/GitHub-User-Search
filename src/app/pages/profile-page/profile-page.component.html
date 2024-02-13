@@ -4,7 +4,7 @@
 </div>
 <div *ngIf="(loader.isLoading$ | async); else elseBlock"
     class="flex items-center justify-center absolute w-full h-full z-9999 bg-[rgba(255, 255, 255, 0.7)] bg-gray-900">
-    <img width="800px" class="bg-cover" src="/assets/loader.gif" alt="Loader">
+    <img width="800px" class="bg-cover" src="/fyle-internship-challenge-23/assets/loader.gif" alt="Loader">
 </div>
 <ng-template #elseBlock>
     <app-profile-card [githubUsername]="githubUsername"></app-profile-card>
