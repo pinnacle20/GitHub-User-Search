@@ -12,7 +12,7 @@ export class ApiService {
   resposityCount = new BehaviorSubject<number>(0);
 
   // Include key to avoid GITHUB API call Limit exceed.
-  secretKey = '';
+  // secretKey = '';
 
   // To fetch user details
   getUser(githubUsername: string) {
@@ -20,7 +20,7 @@ export class ApiService {
       `https://api.github.com/users/${githubUsername}`,
       {
         headers: {
-          Authorization: `Bearer ` + this.secretKey,
+          // Authorization: `Bearer ` + this.secretKey,
         },
       }
     );
@@ -38,7 +38,7 @@ export class ApiService {
 
     // Setting up the headers with Authorization
     const headers = {
-      Authorization: `Bearer ` + this.secretKey,
+      // Authorization: `Bearer ` + this.secretKey,
     };
 
     // Making the HTTP GET request with pagination parameters and headers
