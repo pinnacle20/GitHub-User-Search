@@ -24,8 +24,6 @@ export class ProfileCardComponent {
     }
   }
 
-  respo: any[] = [];
-
   profileImg = '';
   userName = '';
   userBio = '';
