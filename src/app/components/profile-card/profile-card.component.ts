@@ -18,6 +18,7 @@ export class ProfileCardComponent {
 
   constructor(private apiService: ApiService, private router: Router) {}
 
+  // If there is any change in githubUsername then user details will be fetched again
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['githubUsername']) {
       if (this.githubUsername != '') this.getUserDetails();
@@ -34,6 +35,7 @@ export class ProfileCardComponent {
   followers = '';
   following = '';
 
+  // Method to fetch user details, it console error in case of any error and displays the error as well on the error page
   getUserDetails() {
     this.apiService.getUser(this.githubUsername).subscribe(
       (data) => {

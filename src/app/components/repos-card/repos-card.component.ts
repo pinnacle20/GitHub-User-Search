@@ -10,6 +10,7 @@ export class ReposCardComponent {
 
   topics: string[] = [];
 
+  // For each repository, we extract topic names and push it in the list which is then used for displaying on the frontend
   ngOnInit() {
     this.repo.topics.forEach((key: string) => {
       this.topics.push(key);

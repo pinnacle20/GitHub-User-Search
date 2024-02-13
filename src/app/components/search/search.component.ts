@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class SearchComponent {
   constructor(private router: Router) {}
 
+  // Search method gets trigged everytime user enter a valid string, it then populate search text to profile-page component
   searchText: string = '';
   search() {
     if (this.searchText.trim()) {

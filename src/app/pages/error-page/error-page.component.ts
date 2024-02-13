@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ErrorPageComponent {
   errorMessage: string;
 
+  // It displays any error occured during execution 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe((params) => {
       if (params['error'] === 'Not Found')

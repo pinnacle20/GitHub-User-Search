@@ -31,6 +31,7 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
+  // This method fetches all repository data for a given user
   modifyUserData(githubUsername: string) {
     this.githubUsername = githubUsername;
     this.apiService.getRepos(githubUsername, 1, 10).subscribe(
