@@ -30,7 +30,7 @@ _Step1 -_ Run Command
 
 _Step2 -_ Result gets console, also gets stored in coverage/ directory generated after running command
 
-![CodeCoverage](https://github.com/pinnacle20/fyle-internship-challenge-23/blob/master/src/assets/code%20coverage.PNG)
+![CodeCoverage](https://github.com/pinnacle20/GitHub-User-Search/blob/master/src/assets/code%20coverage.PNG)
 
 ## Development server
 
