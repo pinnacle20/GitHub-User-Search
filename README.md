@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## FEATURES
 
-[Checkout App ](https://pinnacle20.github.io/fyle-internship-challenge-23/)
+[Checkout App ](https://pinnacle20.github.io/GitHub-User-Search/)
 
 **Pagination :**
 Used MAT-PAGINATOR, a component provided by Angular Material.
